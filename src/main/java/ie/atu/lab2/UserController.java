@@ -4,9 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -22,6 +21,13 @@ public class UserController {
     @GetMapping("/registerUser/{name}/{email}")
     public void getUser(@PathVariable String name,@PathVariable String email) {
         userService.registerUser(name,email);
+    }
+    @PostMapping("/registerUserBody")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User userBody(@RequestBody User user){
+    System.out.println("User Name: " + user.getName());
+    System.out.println("User Email: " + user.getEmail());
+    return user;
     }
 
 }
